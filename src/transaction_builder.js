@@ -502,10 +502,8 @@ TransactionBuilder.prototype.setLockTime = function (locktime) {
 
 TransactionBuilder.fromTransaction = function (transaction, network, bitcoinCashTx) {
   var txb = new TransactionBuilder(network)
-  txb.enableBitcoinCash(Boolean(bitcoinCashTx))
 
   // Copy transaction fields
-  txb.setVersion(transaction.version)
   txb.setLockTime(transaction.locktime)
 
   // Copy outputs (done first to avoid signature invalidation)
