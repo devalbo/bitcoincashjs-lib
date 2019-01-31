@@ -5,7 +5,7 @@ var typeforce = require('typeforce')
 var types = require('./types')
 var scriptNumber = require('./script_number')
 
-var OPS = require('bitcoin-ops')
+var OPS = require('bitcoincash-ops')
 var REVERSE_OPS = require('bitcoin-ops/map')
 var OP_INT_BASE = OPS.OP_RESERVED // OP_1 - 1
 
