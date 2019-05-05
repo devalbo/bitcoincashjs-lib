@@ -1,10 +1,12 @@
 var baddress = require('./address')
 var bcrypto = require('./crypto')
 var ecdsa = require('./ecdsa')
+var schnorr = require('./schnorr')
 var randomBytes = require('randombytes')
 var typeforce = require('typeforce')
 var types = require('./types')
 var wif = require('wif')
+var ECSignature = require('./ecsignature')
 
 var NETWORKS = require('./networks')
 var BigInteger = require('bigi')
@@ -112,10 +114,15 @@ ECPair.prototype.getPublicKeyBuffer = function () {
   return this.Q.getEncoded(this.compressed)
 }
 
-ECPair.prototype.sign = function (hash) {
+ECPair.prototype.sign = function (hash, signatureAlgorithm) {
   if (!this.d) throw new Error('Missing private key')
+  if (!signatureAlgorithm) signatureAlgorithm = ECSignature.ECDSA
 
-  return ecdsa.sign(hash, this.d)
+  if(signatureAlgorithm === ECSignature.ECDSA){
+    return ecdsa.sign(hash, this.d)
+  } else if(signatureAlgorithm === ECSignature.SCHNORR){
+    return schnorr.sign(hash, this.d)
+  }
 }
 
 ECPair.prototype.toWIF = function () {
