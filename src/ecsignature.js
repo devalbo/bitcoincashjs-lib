@@ -11,6 +11,9 @@ function ECSignature (r, s) {
   this.s = s
 }
 
+ECSignature.ECDSA = 0x00
+ECSignature.SCHNORR = 0x01
+
 ECSignature.parseCompact = function (buffer) {
   typeforce(types.BufferN(65), buffer)
 
@@ -78,20 +81,29 @@ ECSignature.prototype.toDER = function () {
 }
 
 ECSignature.prototype.toRSBuffer = function (buffer, offset) {
+  if(!offset) offset = 0
   buffer = buffer || Buffer.alloc(64)
   this.r.toBuffer(32).copy(buffer, offset)
   this.s.toBuffer(32).copy(buffer, offset + 32)
   return buffer
 }
 
-ECSignature.prototype.toScriptSignature = function (hashType) {
+ECSignature.prototype.toScriptSignature = function (hashType, signatureAlgorithm) {
+  if(!signatureAlgorithm) signatureAlgorithm = ECSignature.ECDSA
+
   var hashTypeMod = hashType & ~0xc0
   if (hashTypeMod <= 0 || hashTypeMod >= 4) throw new Error('Invalid hashType ' + hashType)
 
   var hashTypeBuffer = Buffer.alloc(1)
   hashTypeBuffer.writeUInt8(hashType, 0)
 
-  return Buffer.concat([this.toDER(), hashTypeBuffer])
+  if(signatureAlgorithm === ECSignature.ECDSA){
+    return Buffer.concat([this.toDER(), hashTypeBuffer])
+  } else if(signatureAlgorithm === ECSignature.SCHNORR) {
+    return Buffer.concat([this.toRSBuffer(), hashTypeBuffer])
+  } else {
+    throw new Error('Invalid signature Algorithm')
+  }
 }
 
 module.exports = ECSignature

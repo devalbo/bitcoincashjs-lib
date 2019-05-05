@@ -669,7 +669,7 @@ function canSign (input) {
     )
 }
 
-TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashType, witnessValue, witnessScript) {
+TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashType, witnessValue, witnessScript, signatureAlgorithm) {
   hashType = hashType | Transaction.SIGHASH_BITCOINCASHBIP143;
 
   if (!this.inputs[vin]) throw new Error('No input at index: ' + vin)
@@ -716,10 +716,10 @@ TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashTy
     if (kpPubKey.length !== 33 &&
       input.signType === scriptTypes.P2WPKH) throw new Error('BIP143 rejects uncompressed public keys in P2WPKH or P2WSH')
 
-    var signature = keyPair.sign(signatureHash)
+    var signature = keyPair.sign(signatureHash, signatureAlgorithm)
     if (Buffer.isBuffer(signature)) signature = ECSignature.fromRSBuffer(signature)
 
-    input.signatures[i] = signature.toScriptSignature(hashType)
+    input.signatures[i] = signature.toScriptSignature(hashType, signatureAlgorithm)
     return true
   })
 
