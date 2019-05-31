@@ -52,6 +52,8 @@ function sign(h, x) {
   if(USE_RFC6979){
     deterministicGenerateK(h, x.toBuffer(32), signWithK, Buffer.from('Schnorr+SHA256  ', 'ascii'))
   } else {
+    // Wuille's nonce generation:
+    // https://github.com/sipa/bips/blob/bip-schnorr/bip-schnorr/reference.py#L63
     var kh = crypto.sha256(Buffer.concat([x.toBuffer(32), h]))
     var k = BigInteger.fromBuffer(kh).mod(n)
     signWithK(k)
@@ -147,7 +149,14 @@ module.exports = {
 
   // TODO: remove
   __curve: secp256k1,
+
+  // If disabled, Wuille's nonce generation instead of RFC6979 will be used
+  // https://github.com/sipa/bips/blob/bip-schnorr/bip-schnorr/reference.py#L63
   __useRFC6979: function(use){
+    if(typeof use !== 'boolean'){
+      throw new Error("'use' must be a boolean");
+    }
+
     USE_RFC6979 = use
   }
 }
