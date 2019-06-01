@@ -33,7 +33,9 @@ function sign(h, x) {
     // sign chosen so that the Y coordinate of R has Jacobi symbol 1
     if(jacobi(R.affineY, secp256k1.p) != 1){
       k = n.subtract(k)
-      R = G.multiply(k)
+      // R doesn't need to be updated here
+      // as we only need the x coordinate
+      // which wouldn't change with negative k
     }
 
     r = R.affineX.mod(n)
