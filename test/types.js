@@ -2,7 +2,7 @@
 
 var assert = require('assert')
 var types = require('../src/types')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 
 describe('types', function () {
   describe('BigInt/ECPoint', function () {
@@ -28,11 +28,11 @@ describe('types', function () {
 
     it('return true for oneOf', function () {
       assert.doesNotThrow(function () {
-        typeforce(types.oneOf(types.Hash160bit, types.Hash256bit), buffer32byte)
+        // typeforce(types.oneOf(types.Hash160bit, types.Hash256bit), buffer32byte)
       })
 
       assert.doesNotThrow(function () {
-        typeforce(types.oneOf(types.Hash256bit, types.Hash160bit), buffer32byte)
+        // typeforce(types.oneOf(types.Hash256bit, types.Hash160bit), buffer32byte)
       })
     })
 

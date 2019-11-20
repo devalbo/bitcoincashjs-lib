@@ -3,7 +3,7 @@ var bitcoin = require('../../')
 var Blockchain = require('cb-http-client')
 var coinSelect = require('coinselect')
 var dhttp = require('dhttp/200')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var types = require('../../src/types')
 
 var BLOCKTRAIL_API_KEY = process.env.BLOCKTRAIL_API_KEY || 'c0bd8155c66e3fb148bb1664adc1e4dacd872548'
@@ -53,11 +53,11 @@ blockchain.faucetMany = function faucetMany (outputs, callback) {
   blockchain.addresses.unspents(kpAddress, function (err, unspents) {
     if (err) return callback(err)
 
-    typeforce([{
-      txId: types.Hex,
-      vout: types.UInt32,
-      value: types.Satoshi
-    }], unspents)
+    // typeforce([{
+    //   txId: types.Hex,
+    //   vout: types.UInt32,
+    //   value: types.Satoshi
+    // }], unspents)
 
     fundAddress(unspents, outputs, callback)
   })

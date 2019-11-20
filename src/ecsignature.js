@@ -1,11 +1,11 @@
 var bip66 = require('bip66')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var types = require('./types')
 
 var BigInteger = require('bigi')
 
 function ECSignature (r, s) {
-  typeforce(types.tuple(types.BigInt, types.BigInt), arguments)
+  // typeforce(types.tuple(types.BigInt, types.BigInt), arguments)
 
   this.r = r
   this.s = s
@@ -15,7 +15,7 @@ ECSignature.ECDSA = 0x00
 ECSignature.SCHNORR = 0x01
 
 ECSignature.parseCompact = function (buffer) {
-  typeforce(types.BufferN(65), buffer)
+  // typeforce(types.BufferN(65), buffer)
 
   var flagByte = buffer.readUInt8(0) - 27
   if (flagByte !== (flagByte & 7)) throw new Error('Invalid signature parameter')
@@ -32,7 +32,7 @@ ECSignature.parseCompact = function (buffer) {
 }
 
 ECSignature.fromRSBuffer = function (buffer) {
-  typeforce(types.BufferN(64), buffer)
+  // typeforce(types.BufferN(64), buffer)
 
   var r = BigInteger.fromBuffer(buffer.slice(0, 32))
   var s = BigInteger.fromBuffer(buffer.slice(32, 64))

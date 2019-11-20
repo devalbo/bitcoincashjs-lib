@@ -2,7 +2,7 @@
 
 var Buffer = require('safe-buffer').Buffer
 var bscript = require('../../script')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 
 var p2ms = require('../multisig/')
 var p2pk = require('../pubkey/')
@@ -59,8 +59,8 @@ function encode (redeemScriptSig, redeemScript) {
 }
 
 function decodeStack (stack) {
-  typeforce(typeforce.Array, stack)
-  typeforce(check, stack)
+  // typeforce(typeforce.Array, stack)
+  // typeforce(check, stack)
 
   return {
     redeemScriptStack: stack.slice(0, -1),

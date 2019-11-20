@@ -1,7 +1,7 @@
 var Buffer = require("safe-buffer").Buffer;
 var bip66 = require("bip66");
 var pushdata = require("pushdata-bitcoin");
-var typeforce = require("typeforce");
+// var typeforce = require("typeforce");
 var types = require("./types");
 var scriptNumber = require("./script_number");
 
@@ -37,7 +37,7 @@ function compile(chunks) {
   // TODO: remove me
   if (Buffer.isBuffer(chunks)) return chunks;
 
-  typeforce(types.Array, chunks);
+  // typeforce(types.Array, chunks);
 
   var bufferSize = chunks.reduce(function(accum, chunk) {
     // data chunk
@@ -87,7 +87,7 @@ function decompile(buffer) {
   // TODO: remove me
   if (types.Array(buffer)) return buffer;
 
-  typeforce(types.Buffer, buffer);
+  // typeforce(types.Buffer, buffer);
 
   var chunks = [];
   var i = 0;
@@ -149,7 +149,7 @@ function toASM(chunks) {
 }
 
 function fromASM(asm) {
-  typeforce(types.String, asm);
+  // typeforce(types.String, asm);
 
   return compile(
     asm.split(" ").map(function(chunkStr) {
@@ -165,7 +165,7 @@ function fromASM(asm) {
 
 function toStack(chunks) {
   chunks = decompile(chunks);
-  typeforce(isPushOnly, chunks);
+  // typeforce(isPushOnly, chunks);
 
   return chunks.map(function(op) {
     if (Buffer.isBuffer(op)) return op;

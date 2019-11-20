@@ -2,7 +2,7 @@
 
 var bscript = require('../script')
 var types = require('../types')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var OPS = require('bitcoincash-ops')
 
 function check (script) {
@@ -14,13 +14,13 @@ function check (script) {
 check.toJSON = function () { return 'null data output' }
 
 function encode (data) {
-  typeforce(types.Buffer, data)
+  // typeforce(types.Buffer, data)
 
   return bscript.compile([OPS.OP_RETURN, data])
 }
 
 function decode (buffer) {
-  typeforce(check, buffer)
+  // typeforce(check, buffer)
 
   return buffer.slice(2)
 }

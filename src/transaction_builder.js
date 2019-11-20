@@ -5,7 +5,7 @@ var bscript = require('./script')
 var btemplates = require('./templates')
 var networks = require('./networks')
 var ops = require('bitcoincash-ops')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var types = require('./types')
 var scriptTypes = btemplates.types
 var SIGNABLE = [btemplates.types.P2PKH, btemplates.types.P2PK, btemplates.types.MULTISIG]
@@ -217,7 +217,7 @@ function fixMultisigOrder (input, transaction, vin, value, bitcoinCash) {
 }
 
 function expandOutput (script, scriptType, ourPubKey) {
-  typeforce(types.Buffer, script)
+  // typeforce(types.Buffer, script)
 
   var scriptChunks = bscript.decompile(script)
   if (!scriptType) {
@@ -486,7 +486,7 @@ function TransactionBuilder (network, maximumFeeRate) {
 }
 
 TransactionBuilder.prototype.setLockTime = function (locktime) {
-  typeforce(types.UInt32, locktime)
+  // typeforce(types.UInt32, locktime)
 
   // if any signatures exist, throw
   if (this.inputs.some(function (input) {
@@ -688,7 +688,7 @@ TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashTy
   if (!canSign(input)) {
     if (witnessValue !== undefined) {
       if (input.value !== undefined && input.value !== witnessValue) throw new Error('Input didn\'t match witnessValue')
-      typeforce(types.Satoshi, witnessValue)
+      // typeforce(types.Satoshi, witnessValue)
       input.value = witnessValue
     }
 

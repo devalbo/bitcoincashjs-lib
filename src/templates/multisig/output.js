@@ -2,7 +2,7 @@
 
 var bscript = require('../../script')
 var types = require('../../types')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var OPS = require('bitcoincash-ops')
 var OP_INT_BASE = OPS.OP_RESERVED // OP_1 - 1
 
@@ -28,13 +28,13 @@ function check (script, allowIncomplete) {
 check.toJSON = function () { return 'multi-sig output' }
 
 function encode (m, pubKeys) {
-  typeforce({
-    m: types.Number,
-    pubKeys: [bscript.isCanonicalPubKey]
-  }, {
-    m: m,
-    pubKeys: pubKeys
-  })
+  // typeforce({
+  //   m: types.Number,
+  //   pubKeys: [bscript.isCanonicalPubKey]
+  // }, {
+  //   m: m,
+  //   pubKeys: pubKeys
+  // })
 
   var n = pubKeys.length
   if (n < m) throw new TypeError('Not enough pubKeys provided')
@@ -49,7 +49,7 @@ function encode (m, pubKeys) {
 
 function decode (buffer, allowIncomplete) {
   var chunks = bscript.decompile(buffer)
-  typeforce(check, chunks, allowIncomplete)
+  // typeforce(check, chunks, allowIncomplete)
 
   return {
     m: chunks[0] - OP_INT_BASE,

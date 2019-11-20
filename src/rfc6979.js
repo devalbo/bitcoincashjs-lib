@@ -2,7 +2,7 @@ var Buffer = require('safe-buffer').Buffer
 var createHmac = require('create-hmac')
 var BigInteger = require('bigi')
 
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var types = require('./types')
 
 var ecurve = require('ecurve')
@@ -13,11 +13,11 @@ var ONE = Buffer.alloc(1, 1)
 
 // https://tools.ietf.org/html/rfc6979#section-3.2
 function deterministicGenerateK(hash, x, checkSig, algo16) {
-  typeforce(types.tuple(
-    types.Hash256bit,
-    types.Buffer256bit,
-    types.Function
-  ), arguments)
+  // typeforce(types.tuple(
+  //   types.Hash256bit,
+  //   types.Buffer256bit,
+  //   types.Function
+  // ), arguments)
 
   // Step A, ignored as hash already provided
   // Step B
@@ -33,7 +33,7 @@ function deterministicGenerateK(hash, x, checkSig, algo16) {
     .update(hash)
 
   if(algo16){
-    typeforce(typeforce.BufferN(16), algo16)
+    // typeforce(typeforce.BufferN(16), algo16)
 
     k.update(algo16)
   }
@@ -51,7 +51,7 @@ function deterministicGenerateK(hash, x, checkSig, algo16) {
     .update(hash)
 
   if(algo16){
-    typeforce(typeforce.BufferN(16), algo16)
+    // typeforce(typeforce.BufferN(16), algo16)
 
     k.update(algo16)
   }

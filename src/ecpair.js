@@ -3,7 +3,7 @@ var bcrypto = require('./crypto')
 var ecdsa = require('./ecdsa')
 var schnorr = require('./schnorr')
 var randomBytes = require('randombytes')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var types = require('./types')
 var wif = require('wif')
 var ECSignature = require('./ecsignature')
@@ -16,10 +16,10 @@ var secp256k1 = ecdsa.__curve
 
 function ECPair (d, Q, options) {
   if (options) {
-    typeforce({
-      compressed: types.maybe(types.Boolean),
-      network: types.maybe(types.Network)
-    }, options)
+    // typeforce({
+    //   compressed: types.maybe(types.Boolean),
+    //   network: types.maybe(types.Network)
+    // }, options)
   }
 
   options = options || {}
@@ -31,7 +31,7 @@ function ECPair (d, Q, options) {
 
     this.d = d
   } else {
-    typeforce(types.ECPoint, Q)
+    // typeforce(types.ECPoint, Q)
 
     this.__Q = Q
   }
@@ -94,7 +94,7 @@ ECPair.makeRandom = function (options) {
   var d
   do {
     var buffer = rng(32)
-    typeforce(types.Buffer256bit, buffer)
+    // typeforce(types.Buffer256bit, buffer)
 
     d = BigInteger.fromBuffer(buffer)
   } while (d.signum() <= 0 || d.compareTo(secp256k1.n) >= 0)

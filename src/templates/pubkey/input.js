@@ -1,7 +1,7 @@
 // {signature}
 
 var bscript = require('../../script')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 
 function check (script) {
   var chunks = bscript.decompile(script)
@@ -12,7 +12,7 @@ function check (script) {
 check.toJSON = function () { return 'pubKey input' }
 
 function encodeStack (signature) {
-  typeforce(bscript.isCanonicalSignature, signature)
+  // typeforce(bscript.isCanonicalSignature, signature)
   return [signature]
 }
 
@@ -21,8 +21,8 @@ function encode (signature) {
 }
 
 function decodeStack (stack) {
-  typeforce(typeforce.Array, stack)
-  typeforce(check, stack)
+  // typeforce(typeforce.Array, stack)
+  // typeforce(check, stack)
   return stack[0]
 }
 

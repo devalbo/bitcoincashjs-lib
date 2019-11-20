@@ -2,14 +2,14 @@
 
 var bscript = require('../../script')
 var types = require('../../types')
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 
 var p2ms = require('../multisig/')
 var p2pk = require('../pubkey/')
 var p2pkh = require('../pubkeyhash/')
 
 function check (chunks, allowIncomplete) {
-  typeforce(types.Array, chunks)
+  // typeforce(types.Array, chunks)
   if (chunks.length < 1) return false
 
   var witnessScript = chunks[chunks.length - 1]
@@ -37,20 +37,20 @@ function check (chunks, allowIncomplete) {
 check.toJSON = function () { return 'witnessScriptHash input' }
 
 function encodeStack (witnessData, witnessScript) {
-  typeforce({
-    witnessData: [types.Buffer],
-    witnessScript: types.Buffer
-  }, {
-    witnessData: witnessData,
-    witnessScript: witnessScript
-  })
+  // typeforce({
+  //   witnessData: [types.Buffer],
+  //   witnessScript: types.Buffer
+  // }, {
+  //   witnessData: witnessData,
+  //   witnessScript: witnessScript
+  // })
 
   return [].concat(witnessData, witnessScript)
 }
 
 function decodeStack (stack) {
-  typeforce(typeforce.Array, stack)
-  typeforce(check, stack)
+  // typeforce(typeforce.Array, stack)
+  // typeforce(check, stack)
   return {
     witnessData: stack.slice(0, -1),
     witnessScript: stack[stack.length - 1]

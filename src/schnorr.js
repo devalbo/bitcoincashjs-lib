@@ -1,4 +1,4 @@
-var typeforce = require('typeforce')
+// var typeforce = require('typeforce')
 var types = require('./types')
 
 var BigInteger = require('bigi')
@@ -12,10 +12,10 @@ var deterministicGenerateK = require('./rfc6979').deterministicGenerateK
 
 var USE_RFC6979 = true
 function sign(h, x) {
-  typeforce(types.tuple(
-    types.BufferN(32),
-    types.BigInt
-  ), arguments)
+  // typeforce(types.tuple(
+  //   types.BufferN(32),
+  //   types.BigInt
+  // ), arguments)
 
   var n = secp256k1.n
   var G = secp256k1.G
@@ -66,11 +66,11 @@ function sign(h, x) {
 
 // https://github.com/bitcoincashorg/bitcoincash.org/blob/master/spec/2019-05-15-schnorr.md#signature-verification-algorithm
 function verify (h, signature, P) {
-  typeforce(types.tuple(
-    types.BufferN(32),
-    types.ECSignature,
-    types.ECPoint
-  ), arguments)
+  // typeforce(types.tuple(
+  //   types.BufferN(32),
+  //   types.ECSignature,
+  //   types.ECPoint
+  // ), arguments)
 
   var n = secp256k1.n
   var G = secp256k1.G
@@ -119,17 +119,17 @@ function jacobi(a, p){
 }
 
 function toCompressedPoint(P){
-  typeforce(types.tuple(
-    types.ECPoint
-  ), arguments)
+  // typeforce(types.tuple(
+  //   types.ECPoint
+  // ), arguments)
 
   return Buffer.concat([Buffer.from([P.affineY.isEven() ? 0x02 : 0x03]), P.affineX.toBuffer(32)]);
 }
 
 function fromCompressedPoint(buffer){
-  typeforce(types.tuple(
-    types.BufferN(33)
-  ), arguments)
+  // typeforce(types.tuple(
+  //   types.BufferN(33)
+  // ), arguments)
 
   if(buffer.length !== 33) throw new Error('Invalid length of buffer')
   if(buffer[0] !== 0x2 && buffer[0] !== 0x3) throw new Error('Invalid signum byte')
